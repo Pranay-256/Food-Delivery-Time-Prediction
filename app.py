@@ -313,7 +313,7 @@ def prediction_banner(minutes):
         box-shadow: 0 6px 32px rgba(201,168,76,0.18);
         margin: 20px 0 10px 0;
     ">
-        <div style="font-size:44px; margin-bottom:8px;">🛵</div>
+        <div style="font-size:44px; margin-bottom:8px;">🍕</div>
         <p style="font-family:'Rajdhani',sans-serif; font-size:14px;
                   color:#8b949e; margin:0 0 6px 0; text-transform:uppercase;
                   letter-spacing:1px;">Estimated Delivery Time</p>
