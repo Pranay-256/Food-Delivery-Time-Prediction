@@ -324,7 +324,7 @@ def prediction_banner(minutes):
         </p>
         <p style="font-family:'Rajdhani',sans-serif; font-size:13px;
                   color:#8b949e; margin:10px 0 0 0;">
-            Predicted by Optimized Random Forest &nbsp;·&nbsp; R² = 0.94
+            Predicted by Optimized Random Forest &nbsp;·&nbsp; R² = 0.96
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -376,7 +376,7 @@ def render_footer():
         </div>
         <div class="footer-item">
             <p class="title">&#129504; ML-Powered</p>
-            <p class="subtitle">Optimized Random Forest · R² 0.94</p>
+            <p class="subtitle">Optimized Random Forest · R² 0.96</p>
         </div>
         <div class="footer-item">
             <p class="title">&#128202; Data-Driven</p>
@@ -398,15 +398,15 @@ def load_artifacts():
     from disk. Cached by st.cache_resource so pickle files are read only
     once across all sessions.
     """
-    with open("optimized_rf_model.pkl", "rb") as f:
+    with open("random-forest/optimized_rf_model.pkl", "rb") as f:
         model = pickle.load(f)
-    with open("label_encoders.pkl", "rb") as f:
+    with open("random-forest/label_encoders.pkl", "rb") as f:
         encoders = pickle.load(f)
     return model, encoders
 
 
 # ─────────────────────────────────────────────────────────────
-# SIDEBAR — page navigation (matches T20 analyzer pattern)
+# SIDEBAR — page navigation
 # ─────────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown("""
@@ -427,9 +427,9 @@ with st.sidebar:
     <div style="font-family:'Rajdhani',sans-serif; font-size:13px;
                 color:#8b949e; line-height:1.9; padding:4px 0;">
         <strong style="color:#c9a84c;">Current Version:</strong> 1.0<br>
-        <strong style="color:#c9a84c;">Release Date:</strong> April 2026<br>
+        <strong style="color:#c9a84c;">Release Date:</strong> September 2026<br>
         <strong style="color:#c9a84c;">Model:</strong> Random Forest (Optimized)<br>
-        <strong style="color:#c9a84c;">R² Score:</strong> 0.94
+        <strong style="color:#c9a84c;">R² Score:</strong> 0.96
     </div>
     """, unsafe_allow_html=True)
 
@@ -506,7 +506,7 @@ with center:
             """, unsafe_allow_html=True)
 
             # Load a small sample for display only
-            sample_df = pd.read_csv("Food_Delivery_Times.csv", nrows=8)
+            sample_df = pd.read_csv("random-forest/Food_Delivery_Times.csv", nrows=8)
             st.dataframe(sample_df, use_container_width=True)
 
             st.divider()
@@ -582,7 +582,7 @@ with center:
                     "The total time (in minutes) taken to deliver the order from the moment it was placed, "
                     "including both preparation time and travel time. "
                     "This is the variable the model is trained to predict. "
-                    "Range: 8 – 153 minutes · Mean: ~56.7 min · Std: ~22.1 min. "
+                    "Range: 10 – 135 minutes · Mean: ~51.86 min · Std: ~23.40 min. "
                     "Datatype: Integer.")
 
             st.divider()
@@ -600,13 +600,13 @@ with center:
             # Performance comparison table as cards
             m1, m2, m3, m4 = st.columns(4)
             with m1:
-                kpi_card("📈", "R² Score",  "0.94", "vs 0.92 baseline")
+                kpi_card("📈", "R² Score",  "0.96", "vs 0.91 baseline")
             with m2:
-                kpi_card("📉", "MAE",       "0.50 min", "vs 0.55 baseline")
+                kpi_card("📉", "MAE",       "3.60 min", "vs 5.11 baseline")
             with m3:
-                kpi_card("📉", "RMSE",      "0.63 min", "vs 0.67 baseline")
+                kpi_card("📉", "RMSE",      "4.59 min", "vs 6.61 baseline")
             with m4:
-                kpi_card("🌲", "Estimators","781 trees", "Best via tuning")
+                kpi_card("🌲", "Estimators","900 trees", "Best via tuning")
 
             st.markdown("<br>", unsafe_allow_html=True)
 
@@ -772,7 +772,7 @@ with center:
                     insight_line(2, "Select <strong>High</strong> traffic to simulate peak-hour conditions like lunch or dinner rush.")
                     insight_line(3, "Couriers with <strong>0–1 year</strong> of experience tend to take longer than those with <strong>7+ years</strong>.")
                     insight_line(4, "Snowy and Rainy weather conditions add the most delay compared to Clear weather.")
-                    insight_line(5, "Prediction accuracy: <strong>MAE ≈ 0.50 min</strong> — results are typically within 1 minute of actual time.")
+                    insight_line(5, "Prediction accuracy: <strong>MAE ≈ 3.60 min</strong> — results are typically within a few minutes of actual time.")
 
             st.markdown("<div style='height:50px;'></div>", unsafe_allow_html=True)
 
@@ -997,9 +997,9 @@ with center:
                 "Baseline: Decision Tree Regressor (R² = ~0.92)",
                 "Baseline: Default Random Forest (R² = 0.92)",
                 "Tuned: RandomizedSearchCV — 100 iterations, 5-fold CV",
-                "Best params: n_estimators=781, max_depth=11, max_features=3, "
-                "min_samples_split=3, min_samples_leaf=3",
-                "Optimized Random Forest: R² = 0.94, MAE = 0.50, RMSE = 0.63",
+                "Best params: n_estimators=900, max_depth=13, max_features=4, "
+                "min_samples_split=5, min_samples_leaf=1",
+                "Optimized Random Forest: R² = 0.96, MAE = 3.60, RMSE = 4.59",
             ])
 
         # ── Version history ────────────────────────────────
@@ -1019,9 +1019,9 @@ with center:
                 </div>
                 """, unsafe_allow_html=True)
 
-            version_block("1.0", "April 2026", [
+            version_block("1.0", "September 2026", [
                 "Initial release of Food Delivery Time Predictor",
-                "Optimized Random Forest model with R² = 0.94",
+                "Optimized Random Forest model with R² = 0.96",
                 "Full dark-themed Streamlit UI with gold/teal design system",
                 "Dataset overview tab with column documentation",
                 "Interactive prediction form with instant result banner",
