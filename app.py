@@ -15,7 +15,7 @@ st.set_page_config(
 )
 
 # ─────────────────────────────────────────────────────────────
-# GLOBAL CSS  — dark gold/teal theme (mirrors T20 analyzer)
+# GLOBAL CSS  — dark gold/teal theme 
 # ─────────────────────────────────────────────────────────────
 st.markdown("""
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
@@ -398,9 +398,9 @@ def load_artifacts():
     from disk. Cached by st.cache_resource so pickle files are read only
     once across all sessions.
     """
-    with open("random-forest/optimized_rf_model.pkl", "rb") as f:
+    with open("optimized_rf_model.pkl", "rb") as f:
         model = pickle.load(f)
-    with open("random-forest/label_encoders.pkl", "rb") as f:
+    with open("label_encoders.pkl", "rb") as f:
         encoders = pickle.load(f)
     return model, encoders
 
@@ -506,7 +506,7 @@ with center:
             """, unsafe_allow_html=True)
 
             # Load a small sample for display only
-            sample_df = pd.read_csv("random-forest/Food_Delivery_Times.csv", nrows=8)
+            sample_df = pd.read_csv("Food_Delivery_Times.csv", nrows=8)
             st.dataframe(sample_df, use_container_width=True)
 
             st.divider()
